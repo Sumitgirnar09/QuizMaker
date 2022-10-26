@@ -5,8 +5,6 @@ from django.shortcuts import render
 from django.contrib.auth  import authenticate,  login, logout
 
 def home(request):
-    
-    # return HttpResponse("home")
     return render(request,'admin/home.html')
 
 def AdminLogin(request):

@@ -28,22 +28,33 @@ def studentLogin(request):
 
 def studentRegister(request):
    
-    
     if request.method=="POST":
         Name=request.POST.get('Name', '')
         Gender=request.POST.get("Gender",'')
         Year=request.POST.get("Year",'')
         Student_id=request.POST.get('Student_id','')
-        dob=request.POST.get('dob','')
-        dept=request.POST.get('dept','')
+        Dob=request.POST.get('Dob','')
+        print("Dob :",Dob)
+        Dept=request.POST.get('Dept','')
         pass1=request.POST.get('pass1','')
         pass2=request.POST.get('pass2','')
         email=request.POST.get('email', '')
         
     
-        student =Student(Name=Name,Student_id=Student_id,Gender=Gender,dob=dob,pass1=pass1,Year=Year,dept=dept,email=email)
+        student =Student(Name=Name,Student_id=Student_id,Gender=Gender,Dob=Dob,pass1=pass1,Year=Year,Dept=Dept,email=email)
         student.save()
-            
+        
+        print("Name : ",Name)
+        print("Gender : ",Gender)
+        print("Year : ",Year)
+        print("Student_id : ",Student_id)
+        print("Dob : ",Dob)
+        print("Dept : ",Dept)
+        print("pass1 : ",pass1)
+        print("pass2 : ",pass2)
+        print("email : ",email)
+        
+        
         # Create the user
         myuser = User.objects.create_user(Student_id, email, pass1)
         myuser.save()
@@ -55,3 +66,6 @@ def studentRegister(request):
         # return redirect('studenthome')
     else:
         return render(request, "student/studentregister.html")
+
+def temp(request):
+    return HttpResponse("This is temp page")

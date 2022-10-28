@@ -6,6 +6,6 @@ from . import views
 
 urlpatterns = [
     path('',views.home,name='home'),
-    path('AdminLogin',views.AdminLogin,name='AdminLogin'),
-    path('StudentLogin',include('student.urls')),
+    path('AdminLogin/',views.AdminLogin,name='AdminLogin'),
+    path('studentLogin/',include('student.urls')),
 ]

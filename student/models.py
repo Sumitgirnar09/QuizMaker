@@ -29,7 +29,7 @@ class Student(models.Model):
     Gender = models.CharField(max_length=50,choices=GENDER_CHOICES,default=NULL)
     Year=models.IntegerField(choices=YEAR_CHOICES,default=NULL)
     Dept = models.CharField(max_length=70, default="")
-    Dob=models.DateField(default=datetime.now())
+    Dob=models.DateField(default=datetime.now)
     pass1= models.CharField(max_length=70, default="")
     pass2= models.CharField(max_length=70, default="")
     email=models.EmailField(max_length=100 ,default="")

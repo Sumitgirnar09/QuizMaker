@@ -17,8 +17,7 @@ def studentLogin(request):
         user=authenticate(username= loginusername, password= loginpassword)
         if user is not None:
             login(request, user)
-            return HttpResponse("Student Home")
-            # return render(request,"student/studhome.html")
+            return render(request,"student/studentQuiz.html")
         else:
             # loginstatus={"valid":0}
             # return render(request,"student/studentlogin.html",loginstatus)
@@ -69,3 +68,6 @@ def studentRegister(request):
 
 def temp(request):
     return HttpResponse("This is temp page")
+
+def studentQuiz(request):
+    return render(request,"student/studentQuiz.html")

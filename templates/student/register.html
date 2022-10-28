@@ -1,0 +1,105 @@
+{% extends 'student/base.html' %}
+{% block title %}Teacher register {% endblock %}
+
+{% block css %}
+
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+font-size: 1rem;
+line-height: 2.15;
+padding-left: .75em;
+padding-right: .75em;
+}
+.card-registration .select-arrow {
+top: 13px;
+}
+
+{% endblock %}
+
+{% block body %}
+
+<section class="h-100 bg-dark">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <div class="card card-registration my-4">
+          <div class="row g-0">
+            <div class="col-xl-6 d-none d-xl-block">
+              <img
+                src="http://www.sunraysacademy.com/images/admin.jpg"
+                alt="Sample photo" class="img-fluid"
+                style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
+            </div>
+            <div class="col-xl-6">
+              <div class="card-body p-md-5 text-black">
+                <h3 class="mb-5 text-uppercase">Teacher registration form</h3>
+
+                <!-- Teacher Registration Form starts from here -->
+                <form action="/teacher/register" method="post">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+
+                      <!-- First Name -->
+                      <div class="form-outline">
+                        <input type="text" id="f_name" name="f_name" class="form-control form-control-lg " required
+                          placeholder="First Name">
+                        <label class="form-label" for="f_name">First name</label>
+                      </div>
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <input type="text" id="l_name" name="l_name" class="form-control form-control-lg" required
+                          placeholder="Last Name">
+                        <label class="form-label" for="l_name">Last name</label>
+                      </div>
+                    </div>
+
+
+                    <!-- Password Details -->
+                    <div class="form-outline mb-4">
+                      <input type="password" id="pass1" name="pass1" class="form-control form-control-lg"
+                        placeholder="Enter your password" required>
+                      <label class="form-label" for="pass1">Password</label>
+                    </div>
+                    <div class="form-outline mb-4">
+                      <input type="password" id="pass2" name="pass1" class="form-control form-control-lg"
+                        placeholder="Confirm your password" required>
+                      <label class="form-label" for="pass2">Confirm Password</label>
+                    </div>
+
+
+                    <!-- Email Id -->
+                    <div class="form-outline mb-4">
+                      <input type="email" id="email" name="email" class="form-control form-control-lg" required
+                        placeholder="Enter Your Valid Email Id">
+                      <label class="form-label" for="email">Email ID</label>
+                    </div>
+
+                    <!-- submit button -->
+                    <div class="d-flex justify-content-end pt-3">
+                      <button type="submit" onclick="myFunction()" class="btn btn-warning btn-lg ms-2">Submit
+                        form</button>
+                    </div>
+
+                </form>
+
+                <!-- form Ends Here -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  console.log("Working")
+  function myFunction() {
+    alert("Congrats You are Registered");
+  }
+</script>
+{% endblock %}

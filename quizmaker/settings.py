@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'administrator',
     'student',
     'faculty',
+    'quiz',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,173 @@
+{% extends 'student/base.html' %}
+{% block title %}Teacher register {% endblock %}
+
+{% block css %}
+
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+font-size: 1rem;
+line-height: 2.15;
+padding-left: .75em;
+padding-right: .75em;
+}
+.card-registration .select-arrow {
+top: 13px;
+}
+
+{% endblock %}
+
+{% block body %}
+
+<section class="h-100 bg-dark">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card card-registration my-4">
+                    <div class="row g-0">
+                        <div class="col-xl-6 d-none d-xl-block">
+                            <img src="http://www.sunraysacademy.com/images/admin.jpg" alt="Sample photo"
+                                class="img-fluid"
+                                style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card-body p-md-5 text-black">
+                                <h3 class="mb-5 text-uppercase">Faculty registration form</h3>
+
+
+
+                                <!-- class Faculty(models.Model):
+                        GENDER_CHOICES = (
+                        ("M", "Male"),
+                        ("F", "Female"),
+                        ("O", "Others"),
+                        )
+
+                        Teacher_id = models.AutoField(primary_key=True)
+                        First_Name = models.CharField(max_length=50)
+                        Last_Name = models.CharField(max_length=50)
+                        Gender = models.CharField(max_length=50,choices=GENDER_CHOICES,default=NULL)
+                        Dept = models.CharField(max_length=70, default="")
+                        Dob=models.DateField(default=datetime.now)
+                        pass1= models.CharField(max_length=70, default="")
+                        pass2= models.CharField(max_length=70, default="")
+                        email=models.EmailField(max_length=100 ,default="")
+
+
+                        def __str__(self):
+                            return self.First_Name+self.Last_Name -->
+
+
+                                <!-- Teacher Registration Form starts from here -->
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4">
+
+                                            <!-- First Name -->
+                                            <div class="form-outline">
+                                                <input type="text" id="First_Name" name="First_Name"
+                                                    class="form-control form-control-lg " required
+                                                    placeholder="First Name">
+                                                <label class="form-label" for="First_Name"></label>
+                                            </div>
+                                        </div>
+
+                                        <!-- Last Name -->
+                                        <div class="col-md-6 mb-4">
+                                            <div class="form-outline">
+                                                <input type="text" id="Last_Name" name="Last_Name"
+                                                    class="form-control form-control-lg" required
+                                                    placeholder="Last Name">
+                                                <label class="form-label" for="Last_Name"></label>
+                                            </div>
+                                        </div>
+
+                                        <!-- Email Id -->
+                                        <div class="form-outline mb-4">
+                                            <input type="email" id="email" name="email"
+                                                class="form-control form-control-lg" required
+                                                placeholder="Enter Your Valid Email Id">
+                                            <label class="form-label" for="email"></label>
+                                        </div>
+
+
+                                        <!-- Gender Details -->
+                                        <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+
+                                            <h6 class="mb-0 me-4">Gender: </h6>
+
+                                            <div class="form-check form-check-inline mb-0 me-4">
+                                                <input class="form-check-input" type="radio" name="Gender"
+                                                    id="femaleGender" value="Female" />
+                                                <label class="form-check-label" for="femaleGender">Female</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline mb-0 me-4">
+                                                <input class="form-check-input" type="radio" name="Gender"
+                                                    id="maleGender" value="Male" />
+                                                <label class="form-check-label" for="maleGender">Male</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline mb-0">
+                                                <input class="form-check-input" type="radio" name="Gender"
+                                                    id="otherGender" value="Others" />
+                                                <label class="form-check-label" for="otherGender">Other</label>
+                                            </div>
+
+                                        </div>
+
+                                        <!-- Dob -->
+                                        <div class="form-outline mb-4">
+                                            <input type="date" id="form3Example9" name='Dob'
+                                                placeholder="Enter Your DOB " class="form-control form-control-lg" />
+                                            <label class="form-label" for="form3Example9"></label>
+                                        </div>
+
+                                        <!-- Dept -->
+                                        <div class="form-outline mb-4">
+                                            <input type="text" id="form3Example90" placeholder="Enter Your Department"
+                                                name="Dept" class="form-control form-control-lg" />
+                                            <label class="form-label" for="form3Example90"></label>
+                                        </div>
+
+
+                                        <!-- Password Details -->
+                                        <div class="form-outline mb-4">
+                                            <input type="password" id="pass1" name="pass1"
+                                                class="form-control form-control-lg" placeholder="Enter your password"
+                                                required>
+                                            <label class="form-label" for="pass1"></label>
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            <input type="password" id="pass2" name="pass2"
+                                                class="form-control form-control-lg" placeholder="Confirm your password"
+                                                required>
+                                            <label class="form-label" for="pass2"></label>
+                                        </div>
+
+                                        <!-- submit button -->
+                                        <div class="d-flex justify-content-end pt-3">
+                                            <button type="submit" onclick="myFunction()"
+                                                class="btn btn-warning btn-lg ms-2">Submit
+                                                form</button>
+                                        </div>
+
+                                </form>
+
+                                <!-- form Ends Here -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    console.log("Working")
+    function myFunction() {
+        alert("Congrats You are Registered");
+    }
+</script>
+{% endblock %}

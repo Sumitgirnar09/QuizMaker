@@ -8,4 +8,5 @@ urlpatterns = [
     path('',views.home,name='home'),
     path('AdminLogin/',views.AdminLogin,name='AdminLogin'),
     path('studentLogin/',include('student.urls')),
+    path('FacultyLogin/',include('faculty.urls')),
 ]

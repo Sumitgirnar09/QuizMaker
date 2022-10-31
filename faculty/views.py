@@ -1,7 +1,7 @@
 from http.client import HTTPResponse
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth  import authenticate,  login, logout
 from faculty.models import Faculty
 from django.contrib.auth.models import Group
@@ -17,11 +17,9 @@ def FacultyLogin(request):
         user=authenticate(username= loginusername, password= loginpassword)
         if user is not None:
             login(request, user)
-            print("Faculty ",loginusername," logged in")
-            # return render(request,"faculty/QuizCreate.html")
+            return redirect(facultyAfterLogin)
         else:
-            # loginstatus={"valid":0}
-            # return render(request,"student/studentlogin.html",loginstatus)
+            
             return render(request,"faculty/facultylogin.html")
 
     return render(request,"faculty/facultylogin.html")
@@ -64,3 +62,5 @@ def facultyRegister(request):
     else:
         return render(request, "faculty/facultyregister.html")
 
+def facultyAfterLogin(request):
+    return render(request,"faculty/facultyAfterlogin.html")

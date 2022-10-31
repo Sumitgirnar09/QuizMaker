@@ -21,7 +21,6 @@ class Student(models.Model):
     ("2", "2"),
     ("3", "3"),
     ("4", "4"),
-
     )
     
     Student_id = models.IntegerField(primary_key=True)

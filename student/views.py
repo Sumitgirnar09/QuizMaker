@@ -1,10 +1,12 @@
 from http.client import HTTPResponse
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth  import authenticate,  login, logout
 from student.models import Student
 from django.contrib.auth.models import Group
+from django.contrib import messages
+
 
 def studentLogin(request):
     if request.method=="POST":
@@ -17,7 +19,7 @@ def studentLogin(request):
         user=authenticate(username= loginusername, password= loginpassword)
         if user is not None:
             login(request, user)
-            return render(request,"student/studentQuiz.html")
+            return redirect("studentQuiz")
         else:
             # loginstatus={"valid":0}
             # return render(request,"student/studentlogin.html",loginstatus)
@@ -60,7 +62,7 @@ def studentRegister(request):
         my_group = Group.objects.get(name='student') 
         my_group.user_set.add(myuser)
 
-        return render(request,"student/studentregister.html")   
+        return redirect("studentLogin") 
         
         # return redirect('studenthome')
     else:
@@ -69,3 +71,8 @@ def studentRegister(request):
 
 def studentQuiz(request):
     return render(request,"student/studentQuiz.html")
+
+def student_logout(request):
+    logout(request)
+    messages.success(request, "Successfully logged out")
+    return redirect(studentLogin)

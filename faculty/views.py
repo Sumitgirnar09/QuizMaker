@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth  import authenticate,  login, logout
 from faculty.models import Faculty
 from django.contrib.auth.models import Group
+from quiz.models import Course
 
 def FacultyLogin(request):
     if request.method=="POST":
@@ -64,3 +65,32 @@ def facultyRegister(request):
 
 def facultyAfterLogin(request):
     return render(request,"faculty/facultyAfterlogin.html")
+
+
+# class Course(models.Model):
+    
+#     Course_id = models.AutoField(primary_key=True)
+#     Course_name = models.CharField(max_length=50)
+#     Course_dept=models.CharField(max_length=100)
+#     Credit=models.CharField(max_length=100,default=NULL)
+#     def __str__(self):
+#         return self.Course_name
+
+def CreateCourse(request):
+    
+    # return render(request,"faculty/createCourse.html")
+    if request.method=="POST":
+        Course_name=request.POST.get('Course_name', '')
+        Course_dept=request.POST.get('Course_dept', '')
+        Credit=request.POST.get("Credit",'') 
+        
+        print("Course_Name : ",Course_name)
+        print("Department : ",Course_dept)
+        print("Credit : ",Credit)
+        course =Course(Course_name=Course_name,Course_dept=Course_dept,Credit=Credit)
+        course.save()
+        
+    
+        return render(request,"faculty/createCourse.html")   
+    else:
+        return render(request, "faculty/createCourse.html")

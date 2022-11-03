@@ -15,7 +15,7 @@ class Course(models.Model):
     Course_id = models.AutoField(primary_key=True)
     Course_name = models.CharField(max_length=50)
     Course_dept=models.CharField(max_length=100)
-    
+    Credit=models.CharField(max_length=100,default=NULL)
     def __str__(self):
         return self.Course_name
 

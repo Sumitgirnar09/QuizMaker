@@ -6,6 +6,9 @@ from django.contrib.auth  import authenticate,  login, logout
 from student.models import Student
 from django.contrib.auth.models import Group
 from django.contrib import messages
+from quiz.models import Quiz
+from quiz.models import Result
+quiz_dict={}
 
 
 def studentLogin(request):
@@ -70,7 +73,19 @@ def studentRegister(request):
 
 
 def studentQuiz(request):
-    return render(request,"student/studentQuiz.html")
+    
+    quizzes_list=[]
+    quizzes=Quiz.objects.all();
+    print("quizzes ",quizzes)
+    for quizz in quizzes:
+        print("quizz ",quizz)
+        quizzes_list.append(quizz)    
+    quiz_dict["quizzes_list"]=quizzes_list
+    return render(request,"student/studentQuiz.html",quiz_dict)
+
+def AttemptQuiz(request):
+    
+    return render(request,"student/AttemptQuiz.html",quiz_dict)
 
 def student_logout(request):
     logout(request)

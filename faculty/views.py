@@ -6,6 +6,9 @@ from django.contrib.auth  import authenticate,  login, logout
 from faculty.models import Faculty
 from django.contrib.auth.models import Group
 from quiz.models import Course
+from quiz.models import Quiz
+from quiz.models import Question
+from faculty.models import Faculty
 
 def FacultyLogin(request):
     if request.method=="POST":
@@ -106,17 +109,77 @@ def CreateQuiz(request):
         Courses=request.POST.get('Course_name', '')
         date=request.POST.get("date",'') 
         
-        Quiz_Course_id=Course.objects.filter(Course_name='DBMS').first
-        Quiz_faculty=request.user
+        Quiz_Course_id=Course.objects.filter(Course_name=Courses)[0]
+        Curr_User=request.user
         
-        print("Quiz_Course_id : ",Quiz_Course_id.Course_name)
-        print("Course_name : ",Course)
-        print("date : ",date)
-        print("user is ",Quiz_faculty)
-        course =Course(Course_name=Course,Quiz_Course_id=Quiz_Course_id,Quiz_faculty=Quiz_faculty,date=date)
-        course.save()
-        
+        Quiz_Faculty=Faculty.objects.filter(email=Curr_User)[0]
+
+       
+        quiz=Quiz(Quiz_name=Quiz_name,Quiz_Course_id=Quiz_Course_id,Quiz_Faculty=Quiz_Faculty,date=date)
+        quiz.save()
     
         return render(request,"faculty/CreateQuiz.html")   
     else:
         return render(request, "faculty/CreateQuiz.html")
+
+
+# class Quiz(models.Model):
+    
+#     Quiz_id=models.AutoField(primary_key=True)
+#     Quiz_name=models.CharField(max_length=100)
+#     Quiz_Course_id = models.ForeignKey(Course,on_delete=models.CASCADE)
+#     Quiz_Faculty=models.ForeignKey(Faculty,on_delete=models.CASCADE)
+#     date=models.DateField(default=datetime.now)
+#     def __str__(self):
+#         return self.Quiz_name
+
+# class Question(models.Model):
+    
+#     Question_id=models.AutoField(primary_key=True)
+#     Question_quiz=models.ForeignKey(Quiz,on_delete=models.CASCADE)
+#     Question=models.CharField(max_length=100)
+#     marks=models.IntegerField()
+#     neg_marks=models.IntegerField()
+#     option1=models.CharField(max_length=100)
+#     option2=models.CharField(max_length=100)
+#     option3=models.CharField(max_length=100)
+#     option4=models.CharField(max_length=100)
+#     correct_option=models.IntegerField()
+
+def ManageQuiz(request):
+    
+    dict={"flag":0}
+    if 'submit1' in request.POST:
+        Quiz_name=request.POST.get('Quiz_name', '')
+        Total_Questions=request.POST.get('Total_Questions', '')
+        
+        print("Quiz_name",Quiz_name)
+        list=[]
+        for i in range(int(Total_Questions)):
+            list.append(i)
+        
+        dict["Quiz_name"]=Quiz_name
+        dict["Total_Questions"]=Total_Questions
+        dict["flag"]=1
+        dict["list"]=list
+        
+        Quiz_Course_id=Quiz.objects.filter(Quiz_name=Quiz_name).first()
+        print(Quiz_Course_id.Quiz_name)
+        dict["Quiz_Course_id"]=Quiz_Course_id
+        
+        return render(request, "faculty/ManageQuiz.html",dict)
+    
+    if 'submit2' in request.POST:     
+        
+        return HttpResponse("submit2 here")   
+        return render(request, "faculty/ManageQuiz.html",dict)
+    
+    dict["flag"]=0;
+    AllQuizes=Quiz.objects.all();
+    quizlist=[];
+    for quizz in AllQuizes:
+        quizlist.append(quizz.Quiz_name)
+    dict["quizlist"]=quizlist
+    
+    
+    return render(request, "faculty/ManageQuiz.html",dict)

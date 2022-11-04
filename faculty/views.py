@@ -67,14 +67,6 @@ def facultyAfterLogin(request):
     return render(request,"faculty/facultyAfterlogin.html")
 
 
-# class Course(models.Model):
-    
-#     Course_id = models.AutoField(primary_key=True)
-#     Course_name = models.CharField(max_length=50)
-#     Course_dept=models.CharField(max_length=100)
-#     Credit=models.CharField(max_length=100,default=NULL)
-#     def __str__(self):
-#         return self.Course_name
 
 def CreateCourse(request):
     
@@ -94,3 +86,37 @@ def CreateCourse(request):
         return render(request,"faculty/createCourse.html")   
     else:
         return render(request, "faculty/createCourse.html")
+    
+    
+    #  class Quiz(models.Model):
+    
+    #     Quiz_id=models.AutoField(primary_key=True)
+    #     Quiz_name=models.CharField(max_length=100)
+    #     Quiz_Course_id = models.ForeignKey(Course,on_delete=models.CASCADE)
+    #     Quiz_Faculty=models.ForeignKey(Faculty,on_delete=models.CASCADE)
+    #     date=models.DateField(default=datetime.now)
+    #     def __str__(self):
+    #         return self.Quiz_name 
+    
+def CreateQuiz(request):
+    
+    # return render(request,"faculty/createCourse.html")
+    if request.method=="POST":
+        Quiz_name=request.POST.get('Quiz_name', '')
+        Courses=request.POST.get('Course_name', '')
+        date=request.POST.get("date",'') 
+        
+        Quiz_Course_id=Course.objects.filter(Course_name='DBMS').first
+        Quiz_faculty=request.user
+        
+        print("Quiz_Course_id : ",Quiz_Course_id.Course_name)
+        print("Course_name : ",Course)
+        print("date : ",date)
+        print("user is ",Quiz_faculty)
+        course =Course(Course_name=Course,Quiz_Course_id=Quiz_Course_id,Quiz_faculty=Quiz_faculty,date=date)
+        course.save()
+        
+    
+        return render(request,"faculty/CreateQuiz.html")   
+    else:
+        return render(request, "faculty/CreateQuiz.html")

@@ -9,5 +9,6 @@ urlpatterns = [
     path('facultyRegister/',views.facultyRegister,name='facultyRegister'),
     path('facultyAfterLogin/',views.facultyAfterLogin,name='facultyAfterLogin'),
     path('facultyAfterLogin/CreateCourse/',views.CreateCourse,name='CreateCourse'),
+    path('facultyAfterLogin/CreateQuiz/',views.CreateQuiz,name='CreateQuiz'),
     # path('studentQuiz',views.studentQuiz,name='studentQuiz'),
 ]

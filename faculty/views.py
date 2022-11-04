@@ -31,6 +31,7 @@ def FacultyLogin(request):
 def facultyRegister(request):
    
     if request.method=="POST":
+        
         First_Name=request.POST.get('First_Name', '')
         Last_Name=request.POST.get('Last_Name', '')
         Gender=request.POST.get("Gender",'')
@@ -40,7 +41,6 @@ def facultyRegister(request):
         pass2=request.POST.get('pass2','')
         email=request.POST.get('email', '')
         
-    
         faculty =Faculty(First_Name=First_Name,Last_Name=Last_Name,Gender=Gender,Dob=Dob,pass1=pass1,pass2=pass2,Dept=Dept,email=email)
         faculty.save()
         
@@ -79,9 +79,9 @@ def CreateCourse(request):
         Course_dept=request.POST.get('Course_dept', '')
         Credit=request.POST.get("Credit",'') 
         
-        print("Course_Name : ",Course_name)
-        print("Department : ",Course_dept)
-        print("Credit : ",Credit)
+        # print("Course_Name : ",Course_name)
+        # print("Department : ",Course_dept)
+        # print("Credit : ",Credit)
         course =Course(Course_name=Course_name,Course_dept=Course_dept,Credit=Credit)
         course.save()
         
@@ -114,10 +114,8 @@ def CreateQuiz(request):
         
         Quiz_Faculty=Faculty.objects.filter(email=Curr_User)[0]
 
-       
         quiz=Quiz(Quiz_name=Quiz_name,Quiz_Course_id=Quiz_Course_id,Quiz_Faculty=Quiz_Faculty,date=date)
         quiz.save()
-    
         return render(request,"faculty/CreateQuiz.html")   
     else:
         return render(request, "faculty/CreateQuiz.html")
@@ -133,27 +131,15 @@ def CreateQuiz(request):
 #     def __str__(self):
 #         return self.Quiz_name
 
-# class Question(models.Model):
-    
-#     Question_id=models.AutoField(primary_key=True)
-#     Question_quiz=models.ForeignKey(Quiz,on_delete=models.CASCADE)
-#     Question=models.CharField(max_length=100)
-#     marks=models.IntegerField()
-#     neg_marks=models.IntegerField()
-#     option1=models.CharField(max_length=100)
-#     option2=models.CharField(max_length=100)
-#     option3=models.CharField(max_length=100)
-#     option4=models.CharField(max_length=100)
-#     correct_option=models.IntegerField()
 
+
+dict={"flag":0}
 def ManageQuiz(request):
     
-    dict={"flag":0}
     if 'submit1' in request.POST:
         Quiz_name=request.POST.get('Quiz_name', '')
         Total_Questions=request.POST.get('Total_Questions', '')
         
-        print("Quiz_name",Quiz_name)
         list=[]
         for i in range(int(Total_Questions)):
             list.append(i)
@@ -164,15 +150,43 @@ def ManageQuiz(request):
         dict["list"]=list
         
         Quiz_Course_id=Quiz.objects.filter(Quiz_name=Quiz_name).first()
-        print(Quiz_Course_id.Quiz_name)
         dict["Quiz_Course_id"]=Quiz_Course_id
         
         return render(request, "faculty/ManageQuiz.html",dict)
     
-    if 'submit2' in request.POST:     
+    if 'submit2' in request.POST:
+        # Question-{{forloop.counter}}
+        # return HttpResponse("submit2 here") 
+        print("Enter in submit 2")
+        print(dict["Total_Questions"])
+        for i in range(int(dict["Total_Questions"])):
+            print("Question-"+str(i+1))
+            Question_quiz=dict["Quiz_Course_id"];
+            Question_desc=request.POST.get("Question-"+str(i+1),'')
+            Option1=request.POST.get("Question-"+str(i+1), '')
+            Option1=request.POST.get("Option1-"+str(i+1), '')
+            Option2=request.POST.get("Option2-"+str(i+1), '')
+            Option3=request.POST.get("Option3-"+str(i+1), '')
+            Option4=request.POST.get("Option4-"+str(i+1), '')
+            Marks=request.POST.get("Marks-"+str(i+1), '')
+            NegMarks=request.POST.get("NegMarks-"+str(i+1), '')
+            correct_option=request.POST.get("Correct-"+str(i+1),'')
+            
+            print("Question : ",Question)
+            print("Question Quiz: ",Question_quiz)
+            print('Option1: ',Option1)
+            print("Option2: ",Option2)
+            print("Option3 ",Option3)
+            print("Option4 ",Option4)
+            print("Marks ",Marks)
+            print("NegMarks ",NegMarks)
+            print("correct_option ",correct_option)
+            # class Question(models.Model):
+
+            question =Question(Question_quiz=Question_quiz,Question_desc=Question_desc,marks=Marks,neg_marks=NegMarks,option1=Option1,option2=Option2,option3=Option3,option4=Option4,correct_option=correct_option)
+            question.save()
         
-        return HttpResponse("submit2 here")   
-        return render(request, "faculty/ManageQuiz.html",dict)
+        # return render(request, "faculty/ManageQuiz.html",dict)
     
     dict["flag"]=0;
     AllQuizes=Quiz.objects.all();

@@ -552,7 +552,7 @@
                         <select class="form-control" name="Quiz_name" id="exampleFormControlSelect1">
                             <option selected>Open this select menu</option>
                             {% for quizz in quizlist %}
-                            <option value= '{{quizz}}'>{{quizz}}</option>
+                            <option value='{{quizz}}'>{{quizz}}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -571,71 +571,91 @@
 
         {% if flag == 1 %}
 
-        {% for i in list  %}
-        <section class="panel important " style="border: 2px solid black;">
-            <section class="panel important">
-                <h2> Q {{forloop.counter}}</h2>
-                
-                
-                <div class="card my-4 mt-0 ">
-                    <div class="card-header">
-                        <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label"></label>
-                            <textarea class="form-control" placeholder="Enter Your Question Here" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <form action="" method="post">
+            {% csrf_token %}
+            {% for i in list %}
+            <section class="panel important " style="border: 2px solid black;">
+                <section class="panel important">
+                    <h2> Q.{{forloop.counter}}</h2>
+                    <div class="card my-4 mt-0 ">
+                        <div class="card-header">
+                            <div class="mb-3">
+                                <h4>"Question-{{forloop.counter}}"</h4>
+                                <label for="exampleFormControlTextarea1" class="form-label"></label>
+                                <textarea class="form-control" name="Question-{{forloop.counter}}"
+                                    placeholder="Enter Your Question Here" id="exampleFormControlTextarea1"
+                                    rows="3"></textarea>
+                            </div>
                         </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label"></label>
+                                <input type="text" name="Option1-{{forloop.counter}}" class="form-control"
+                                    placeholder="Option-1" id="exampleFormControlInput1">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label"></label>
+                                <input type="text" name="Option2-{{forloop.counter}}" class="form-control"
+                                    placeholder="Option-2" id="exampleFormControlInput1">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label"></label>
+                                <input type="text" name="Option3-{{forloop.counter}}" class="form-control"
+                                    placeholder="Option-3" id="exampleFormControlInput1">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label"></label>
+                                <input type="text" name="Option4-{{forloop.counter}}" class="form-control"
+                                    placeholder="Option-4" id="exampleFormControlInput1">
+                            </div>
+
+                            <!-- Options -->
+                            <span>Enter the Correct : <span>
+
+                                    <div class="form-check form-check-inline my-4">
+                                        <input class="form-check-input" type="radio" name="Correct-{{forloop.counter}}"
+                                            id="inlineRadio1" value="1">
+                                        <label class="form-check-label" for="inlineRadio1">1</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="Correct-{{forloop.counter}}"
+                                            id="inlineRadio2" value="2">
+                                        <label class="form-check-label" for="inlineRadio2">2</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="Correct-{{forloop.counter}}"
+                                            id="inlineRadio3" value="3">
+                                        <label class="form-check-label" for="inlineRadio3">3</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="Correct-{{forloop.counter}}"
+                                            id="inlineRadio4" value="4">
+                                        <label class="form-check-label" for="inlineRadio4">4</label>
+                                    </div>
+
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Positive Marks</label>
+                                <input type="text" name="Marks-{{forloop.counter}}" class="form-control"
+                                    placeholder="Marks For the Question" id="exampleFormControlInput1">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Negative Marks</label>
+                                <input type="text" name="NegMarks-{{forloop.counter}}" class="form-control"
+                                    placeholder="Negative Marks For the Question " id="exampleFormControlInput1">
+                            </div>
+
+                        </div>
+
                     </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"></label>
-                            <input type="text" class="form-control" placeholder="Option-1" id="exampleFormControlInput1"
-                        </div>
 
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"></label>
-                            <input type="text" class="form-control" placeholder="Option-2" id="exampleFormControlInput1"
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"></label>
-                            <input type="text" class="form-control" placeholder="Option-3" id="exampleFormControlInput1"
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"></label>
-                            <input type="text" class="form-control" placeholder="Option-4" id="exampleFormControlInput1"
-                        </div>
-
-                        <!-- Options -->
-                        <span>Enter the Correct : <span>
-
-                        <div class="form-check form-check-inline my-4">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                            <label class="form-check-label" for="inlineRadio1">1</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                            <label class="form-check-label" for="inlineRadio2">2</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                            <label class="form-check-label" for="inlineRadio3">3</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
-                            <label class="form-check-label" for="inlineRadio4">4</label>
-                          </div>
-                          
-                    </div>
-
-
-                  </div>
+                </section>
             </section>
-
-        
-        </section>
-
-        {% endfor %}
-
+            {% endfor %}
+            <button type="submit" name="submit2" class="btn btn-primary btn-lg my-4 " style="margin-left: 50px;">Submit Quiz</button>
+        </form>
         {% endif %}
 
     </main>

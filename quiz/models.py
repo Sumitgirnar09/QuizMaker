@@ -33,7 +33,7 @@ class Question(models.Model):
     
     Question_id=models.AutoField(primary_key=True)
     Question_quiz=models.ForeignKey(Quiz,on_delete=models.CASCADE)
-    Question=models.CharField(max_length=100)
+    Question_desc=models.CharField(max_length=100)
     marks=models.IntegerField()
     neg_marks=models.IntegerField()
     option1=models.CharField(max_length=100)
@@ -42,6 +42,8 @@ class Question(models.Model):
     option4=models.CharField(max_length=100)
     correct_option=models.IntegerField()
     
+    def __str__(self):
+        return self.Question_quiz.Quiz_name+"("+str(self.Question_id)+")"
     
 class Result(models.Model):
     STATUS = (

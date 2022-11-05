@@ -500,7 +500,7 @@
 <body>
     {% if user.is_authenticated %}
     <header role="banner">
-        <h1>Sumit Girnar</h1>
+        <h1>{{request.user}}</h1>
         <ul class="utilities">
             <br>
             <li class="users"><a href="#">My Account</a></li>
@@ -555,6 +555,7 @@
                             probably haven't heard of them accusamus labore sustainable VHS.  <br>
                             <form action = "/studentLogin/AttemptQuiz" method = "post">
                                 {% csrf_token %}
+                                
                                 <button type="submit" name="{{quizz}}" class="btn btn-primary btn-lg my-3">AttemptQuiz</button>
                             <form>
                         </div>

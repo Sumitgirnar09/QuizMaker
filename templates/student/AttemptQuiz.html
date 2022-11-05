@@ -600,7 +600,7 @@
                                         <h5 class="mt-1 ml-2">{{Questions.Question_desc}}
                                         </h5>
                                     </div>
-                                    <div class="ans ml-2">
+                                    <!-- <div class="ans ml-2">
                                         <label class="radio"> <input type="radio" name="{{Questions.Question_id}}" value="1">
                                             <span>{{Questions.option1}}</span>
                                         </label>
@@ -620,7 +620,26 @@
                                         <label class="radio"> <input type="radio" name="{{Questions.Question_id}}" value="4">
                                             <span>{{Questions.option4}}</span>
                                         </label>
-                                    </div>
+                                    </div>  -->
+
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                          <input class="form-check-input me-1" type="radio" name="{{Questions.Question_id}}" value="1" id="firstCheckbox">
+                                          <label class="form-check-label" for="firstCheckbox">{{Questions.option1}}</label>
+                                        </li>
+                                        <li class="list-group-item">
+                                          <input class="form-check-input me-1" type="radio" name="{{Questions.Question_id}}" value="2" id="secondCheckbox">
+                                          <label class="form-check-label" for="secondCheckbox">{{Questions.option2}}</label>
+                                        </li>
+                                        <li class="list-group-item">
+                                          <input class="form-check-input me-1" type="radio" name="{{Questions.Question_id}}" value="3" id="thirdCheckbox">
+                                          <label class="form-check-label" for="thirdCheckbox">{{Questions.option3}}</label>
+                                        </li>
+                                        <li class="list-group-item">
+                                          <input class="form-check-input me-1" type="radio" name="{{Questions.Question_id}}" value="4" id="thirdCheckbox">
+                                          <label class="form-check-label" for="thirdCheckbox">{{Questions.option4}}</label>
+                                        </li>
+                                      </ul>
                                 </div>
                                 <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
                                     <!-- <button class="btn btn-primary d-flex align-items-center btn-danger"

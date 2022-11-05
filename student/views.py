@@ -94,7 +94,9 @@ def GenerateResult(request):
         
         for Quiz_Questions in Quiz_dict["Quiz_Questions"]:
             response=request.POST.get(str(Quiz_Questions.Question_id), '')
-            if(Quiz_Questions.correct_option==response):
+            print("Quiz_Questions.correct_option,response",Quiz_Questions.correct_option,response)
+            if(Quiz_Questions.correct_option==int(response)):
+                print("Helllo")
                 correct_questions+=1;
                 Totalmarks+=Quiz_Questions.marks
             else:
@@ -103,9 +105,12 @@ def GenerateResult(request):
         
         curruser=request.user
         curr_student=Student.objects.filter(Student_id=curruser.username).first()
-        print("curruser: ",curruser)
-        result=Result(Quiz=Quiz_dict["SelectedQuiz"],student=curr_student,marks=Totalmarks,TotalCorrect_Ques=correct_questions,TotalWrong_Ques=wrong_questions)
-        result.save()
+        
+        # Check whether result of same Quiz of same user exists already
+        AllResult=Result.objects.filter(student=curr_student,Quiz=Quiz_dict["SelectedQuiz"])
+        if len(AllResult)==0:
+            result=Result(Quiz=Quiz_dict["SelectedQuiz"],student=curr_student,marks=Totalmarks,TotalCorrect_Ques=correct_questions,TotalWrong_Ques=wrong_questions)
+            result.save()
     # class Result(models.Model):
    
     # Result_id=models.AutoField(primary_key=True)
@@ -125,6 +130,7 @@ def AttemptQuiz(request):
             Quiz_dict["SelectedQuiz"]=quizz
             Quiz_Questions=Question.objects.filter(Question_quiz=quizz)
             Quiz_dict["Quiz_Questions"]=Quiz_Questions
+            
             # print("clicked button is : ",quizz.Quiz_name)
             return render(request,"student/AttemptQuiz.html",Quiz_dict)
     

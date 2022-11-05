@@ -526,14 +526,17 @@
 
         <section class="panel important">
             <h2> Available Quizes </h2>
-            <ul>
-                <!-- <span>Name :{{request.user.first_name}}</span> -->
-                <span>{{request.user.last_name}}</span>
-            </ul>
-            {% comment %} {% for quizz in quizzes  %} {% endcomment %}
-            <h3></h3>
-            {% for results_set in resultslist %}
-            <h4>{{results_set.forloop.counter}}</h4>
+            <form action="" method="post" >
+                {% csrf_token %}
+                <select class="form-select" name="selected_quiz" aria-label="Default select example">
+                    <option selected>Select The Quizz</option>
+                    {% for quizz in quizzes  %}
+                        <option value="{{quizz}}">{{quizz}}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+            </form>
+            <h4>{{selected_quiz}}</h4>
             <table class="table">
                 <thead>
                     <tr>
@@ -547,18 +550,17 @@
                 </thead>
                 <tbody>
                     <tr>
-                        {% for results in results_set  %}
+                        {% for result in results  %}
                         <th scope="row">{{forloop.counter}}</th>
-                        <td>{{results.student}}</td>
-                        <td>{{results.TotalCorrect_Ques}}</td>
-                        <td>{{results.TotalCorrect_Ques}}</td>
-                        <td>{{results.marks}}</td>
-                        <td>{{results.ResultDate}}</td>
+                        <td>{{result.student}}</td>
+                        <td>{{result.TotalCorrect_Ques}}</td>
+                        <td>{{result.TotalCorrect_Ques}}</td>
+                        <td>{{result.marks}}</td>
+                        <td>{{result.ResultDate}}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            {% endfor %}
               
             {% comment %} {% endfor %} {% endcomment %}
             </section>

@@ -125,18 +125,31 @@ def StudentPerformance(request):
     components={}
     curruser=request.user
     currfaculty=Faculty.objects.filter(email=curruser.username).first()
-    quizzes=Quiz.objects.filter(Quiz_Faculty=currfaculty)
     resultslist=[]
     resultsname=[]
-    for quizz in quizzes:
-        print(quizz)
+    allQuizzes=Quiz.objects.filter(Quiz_Faculty=currfaculty)
+    components["quizzes"]=allQuizzes
+    if request.method == "POST":
+        selected_quiz=request.POST.get("selected_quiz",'')
+        print("selected quizz is",selected_quiz)
+        quizz=Quiz.objects.filter(Quiz_Faculty=currfaculty,Quiz_name=selected_quiz).first()
         results=Result.objects.filter(Quiz=quizz).order_by('-marks')
-        resultslist.append(results)
-        resultsname.append(quizz.Quiz_name)
-    components["resultslist"]=resultslist
-    components["quizzes"]=quizzes
-    components["resultsname"]=resultsname
-    return render(request,"faculty/StudentPerformance.html",components)
+        components["selected_quiz"]=selected_quiz
+        components["results"]=results
+
+        return render(request,"faculty/StudentPerformance.html",components)
+    else:
+        return render(request,"faculty/StudentPerformance.html",components)
+
+    # for quizz in quizzes:
+    #     print(quizz)
+    #     results=Result.objects.filter(Quiz=quizz).order_by('-marks')
+    #     resultslist.append(results)
+    #     resultsname.append(quizz.Quiz_name)
+    # # components["resultslist"]=resultslist
+    # # components["quizzes"]=quizzes
+    # # components["resultsname"]=resultsname
+    # return render(request,"faculty/StudentPerformance.html",components)
 
 # class Quiz(models.Model):
     

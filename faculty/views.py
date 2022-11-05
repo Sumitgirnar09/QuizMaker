@@ -8,6 +8,7 @@ from django.contrib.auth.models import Group
 from quiz.models import Course
 from quiz.models import Quiz
 from quiz.models import Question
+from quiz.models import Result
 from faculty.models import Faculty
 
 def FacultyLogin(request):
@@ -119,7 +120,23 @@ def CreateQuiz(request):
         return render(request,"faculty/CreateQuiz.html")   
     else:
         return render(request, "faculty/CreateQuiz.html")
-
+    
+def StudentPerformance(request):
+    components={}
+    curruser=request.user
+    currfaculty=Faculty.objects.filter(email=curruser.username).first()
+    quizzes=Quiz.objects.filter(Quiz_Faculty=currfaculty)
+    resultslist=[]
+    resultsname=[]
+    for quizz in quizzes:
+        print(quizz)
+        results=Result.objects.filter(Quiz=quizz).order_by('-marks')
+        resultslist.append(results)
+        resultsname.append(quizz.Quiz_name)
+    components["resultslist"]=resultslist
+    components["quizzes"]=quizzes
+    components["resultsname"]=resultsname
+    return render(request,"faculty/StudentPerformance.html",components)
 
 # class Quiz(models.Model):
     

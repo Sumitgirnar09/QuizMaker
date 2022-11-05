@@ -494,6 +494,56 @@
                 width: 23%;
             }
         }
+
+        /* quiz css */
+
+        body {
+            background-color: #eee;
+        }
+
+        label.radio {
+            cursor: pointer;
+        }
+
+        label.radio input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        label.radio span {
+            padding: 4px 0px;
+            border: 1px solid red;
+            display: inline-block;
+            color: red;
+            width: 100px;
+            text-align: center;
+            border-radius: 3px;
+            margin-top: 7px;
+            text-transform: uppercase;
+        }
+
+        label.radio input:checked+span {
+            border-color: red;
+            background-color: red;
+            color: #fff;
+        }
+
+        .ans {
+            margin-left: 36px !important;
+        }
+
+        .btn:focus {
+            outline: 0 !important;
+            box-shadow: none !important;
+        }
+
+        .btn:active {
+            outline: 0 !important;
+            box-shadow: none !important;
+        }
     </style>
 </head>
 
@@ -520,48 +570,94 @@
 
     <main role="main">
 
-        <section class="panel important">
-            <h2> Available Quizes </h2>
+        <section class="panel important my-7">
+            <h2> Quiz : {{SelectedQuiz}} </h2>
             <ul>
                 <span>{{request.user.first_name}}</span>
                 <span>{{request.user.last_name}}</span>
             </ul>
         </section>
 
-        {% for quizz in quizzes_list %}
-        <section class="panel important">
-            {% comment %} <h2>Available Quizes</h2> {% endcomment %}
+        <!-- Question Template -->
 
-            <div class="card">
-                <div id="accordion">
-
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
-                                aria-expanded="true" aria-controls="collapseOne">
-                                {{quizz}}
-                            </button>
-                        </h5>
-                    </div>
-
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body">
-                            cghghgf pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
-                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
-                            probably haven't heard of them accusamus labore sustainable VHS.
-                            <button type="button" class="btn btn-primary btn-lg">Large button</button>
+        <form action="/studentLogin/GenerateResult" method="post">
+        {% csrf_token %}
+        {% for Questions in Quiz_Questions %}
+            <div class="question" style="margin-top: 30px;">
+                
+                <div class="container  my-7" style="margin-top: 10px;">
+                    <div class="d-flex justify-content-center row">
+                        <div class="col-md-10 col-lg-10">
+                            <div class="border">
+                                <div class="question bg-white p-3 border-bottom">
+                                    <div class="d-flex flex-row justify-content-between align-items-center mcq">
+                                        <h4>Marks : +{{Questions.marks}}/-{{Questions.neg_marks}}</h4><span>({{forloop.counter}} of 20)</span>
+                                    </div>
+                                </div>
+                                <div class="question bg-white p-3 border-bottom">
+                                    <div class="d-flex flex-row align-items-center question-title">
+                                        <h3 class="text-danger">Q.</h3>
+                                        <h5 class="mt-1 ml-2">{{Questions.Question_desc}}
+                                        </h5>
+                                    </div>
+                                    <div class="ans ml-2">
+                                        <label class="radio"> <input type="radio" name="{{Questions.Question_id}}" value="1">
+                                            <span>{{Questions.option1}}</span>
+                                        </label>
+                                    </div>
+                                    <div class="ans ml-2">
+                                        <label class="radio"> <input type="radio" name="{{Questions.Question_id}}"value="2">
+                                            <span>{{Questions.option2}}</span>
+                                        </label>
+                                    </div>
+                                    <div class="ans ml-2">
+                                        <h5>Name is {{Questions.Question_id}} </h5>
+                                        <label class="radio"> <input type="radio" name="{{Questions.Question_id}}" value="3">
+                                            <span>{{Questions.option3}}</span>
+                                        </label>
+                                    </div>
+                                    <div class="ans ml-2">
+                                        <label class="radio"> <input type="radio" name="{{Questions.Question_id}}" value="4">
+                                            <span>{{Questions.option4}}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
+                                    <!-- <button class="btn btn-primary d-flex align-items-center btn-danger"
+                                    type="button"><i class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;previous</button>
+                                    <button class="btn btn-primary border-success align-items-center btn-success"
+                                    type="button">Next<i class="fa fa-angle-right ml-2"></i></button> -->
+                                </div> 
+                            </div>
                         </div>
                     </div>
-
                 </div>
+                
+                
+                {% endfor %}
+                <button type="submit" class="btn btn-primary btn-lg mx-10 py-2" style=" display:block;margin: 10px auto;">Submit Quiz</button>
+            </form>
 
-            </div>
-        </section>
-        {% endfor %}
+
+
+
+
+        </div>
+
+        <!-- Question Template -->
+
+
+
+
+
+
+
+
+
+
+
+
+
     </main>
 
     {% endif %}

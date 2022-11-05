@@ -54,5 +54,7 @@ class Result(models.Model):
     Quiz=models.ForeignKey(Quiz,on_delete=models.CASCADE)
     student=models.ForeignKey(Student,on_delete=models.CASCADE)
     marks=models.IntegerField()
-    status=models.CharField(max_length=50,choices=STATUS,default=NULL)
+    TotalCorrect_Ques=models.IntegerField(default=0)
+    TotalWrong_Ques=models.IntegerField(default=0)
+    ResultDate=models.DateField(default=datetime.now)
 

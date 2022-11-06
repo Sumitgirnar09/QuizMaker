@@ -142,3 +142,13 @@ def student_logout(request):
     logout(request)
     messages.success(request, "Successfully logged out")
     return redirect(studentLogin)
+
+
+def grades(request):
+    components={}
+    curr_user=request.user.username
+    student=Student.objects.filter(Student_id=curr_user).first()
+    results=Result.objects.filter(student=student)
+    components["Student_Name"]=student.Name
+    components["results"]=results
+    return render(request,"student/grades.html",components)

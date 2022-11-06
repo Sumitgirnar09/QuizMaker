@@ -227,3 +227,8 @@ def ManageQuiz(request):
     
     
     return render(request, "faculty/ManageQuiz.html",dict)
+
+def faculty_logout(request):
+    logout(request)
+    # messages.success(request, "Successfully logged out")
+    return redirect(FacultyLogin)

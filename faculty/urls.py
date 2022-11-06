@@ -12,5 +12,7 @@ urlpatterns = [
     path('facultyAfterLogin/CreateQuiz/',views.CreateQuiz,name='CreateQuiz'),
     path('facultyAfterLogin/ManageQuiz/',views.ManageQuiz,name='ManageQuiz'),
     path('facultyAfterLogin/StudentPerformance/',views.StudentPerformance,name='StudentPerformance'),
+    path('faculty_logout/',views.faculty_logout,name='faculty_logout'),
+
     # path('studentQuiz',views.studentQuiz,name='studentQuiz'),
 ]

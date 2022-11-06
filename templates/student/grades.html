@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
 
 <head>
     <meta charset="utf-8">
@@ -9,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Create-Quiz</title>
+    <title>Student Performance</title>
 
     <style>
         @charset "UTF-8";
@@ -516,7 +515,8 @@
 
     <nav role='navigation'>
         <ul class="main" style="text-align: center;">
-            <li class="dashboard"><a href="/FacultyLogin/facultyAfterLogin/">Dashboard</a></li>
+
+            <li class="dashboard"><a href="/studentLogin/studentQuiz/">Dashboard</a></li>
         </ul>
 
     </nav>
@@ -524,139 +524,61 @@
 
     <main role="main">
 
-
-
-
-        <!-- class Quiz(models.Model):
-    
-        Quiz_id=models.AutoField(primary_key=True)
-        Quiz_name=models.CharField(max_length=100)
-        Quiz_Course_id = models.ForeignKey(Course,on_delete=models.CASCADE)
-        Quiz_Faculty=models.ForeignKey(Faculty,on_delete=models.CASCADE)
-        date=models.DateField(default=datetime.now)
-        def __str__(self):
-            return self.Quiz_name -->
-
-        <!-- If Dashboard Clicked -->
-
-        {% if flag == 0 %}
-
-        <section class="panel important px-4">
-            <section class="panel important">
-                <h2> Select Quiz </h2>
-
-                <form action="" method="post">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Select Quiz</label>
-                        <select class="form-control" name="Quiz_name" id="exampleFormControlSelect1">
-                            <option selected>Open this select menu</option>
-                            {% for quizz in quizlist %}
-                            <option value='{{quizz}}'>{{quizz}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">Total No of Questions</label>
-                        <input type="text" class="form-control" name="Total_Questions" id="exampleFormControlInput1"
-                            placeholder="Total No of Quizes">
-                    </div>
-                    <button type="submit" name="submit1" class="btn btn-primary btn-lg mx-4">Add Question</button>
-                </form>
-
+        <section class="panel important">
+            <h2> Available Quizes </h2>
+            <!-- <form action="" method="post" >
+                {% csrf_token %}
+                <select class="form-select" name="selected_quiz" aria-label="Default select example">
+                    <option selected>Select The Quizz</option>
+                    {% for quizz in quizzes  %}
+                        <option value="{{quizz}}">{{quizz}}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+            </form> -->
+            <h4>{{Student_Name}}</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Index</th>
+                        <th scope="col">Quiz</th>
+                        <th scope="col">Correct Questions</th>
+                        <th scope="col">Wrong Questions</th>
+                        <th scope="col">Total Marks</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for result in results  %}
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{result.Quiz}}</td>
+                        <td>{{result.TotalCorrect_Ques}}</td>
+                        <td>{{result.TotalCorrect_Ques}}</td>
+                        <td>{{result.marks}}</td>
+                        <td>{{result.ResultDate}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+              
             </section>
-        </section>
+            
+            
 
-        {% endif %}
 
-        {% if flag == 1 %}
 
-        <form action="" method="post">
-            {% csrf_token %}
-            {% for i in list %}
-            <section class="panel important " style="border: 2px solid black;">
-                <section class="panel important">
-                    <h2> Q.{{forloop.counter}}</h2>
-                    <div class="card my-4 mt-0 ">
-                        <div class="card-header">
-                            <div class="mb-3">
-                                <h4>"Question-{{forloop.counter}}"</h4>
-                                <label for="exampleFormControlTextarea1" class="form-label"></label>
-                                <textarea class="form-control" name="Question-{{forloop.counter}}"
-                                    placeholder="Enter Your Question Here" id="exampleFormControlTextarea1"
-                                    rows="3"></textarea>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label"></label>
-                                <input type="text" name="Option1-{{forloop.counter}}" class="form-control"
-                                    placeholder="Option-1" id="exampleFormControlInput1">
-                            </div>
 
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label"></label>
-                                <input type="text" name="Option2-{{forloop.counter}}" class="form-control"
-                                    placeholder="Option-2" id="exampleFormControlInput1">
-                            </div>
 
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label"></label>
-                                <input type="text" name="Option3-{{forloop.counter}}" class="form-control"
-                                    placeholder="Option-3" id="exampleFormControlInput1">
-                            </div>
 
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label"></label>
-                                <input type="text" name="Option4-{{forloop.counter}}" class="form-control"
-                                    placeholder="Option-4" id="exampleFormControlInput1">
-                            </div>
+  
 
-                            <!-- Options -->
-                            <span>Enter the Correct : <span>
 
-                                    <div class="form-check form-check-inline my-4">
-                                        <input class="form-check-input" type="radio" name="Correct-{{forloop.counter}}"
-                                            id="inlineRadio1" value="1">
-                                        <label class="form-check-label" for="inlineRadio1">1</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="Correct-{{forloop.counter}}"
-                                            id="inlineRadio2" value="2">
-                                        <label class="form-check-label" for="inlineRadio2">2</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="Correct-{{forloop.counter}}"
-                                            id="inlineRadio3" value="3">
-                                        <label class="form-check-label" for="inlineRadio3">3</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="Correct-{{forloop.counter}}"
-                                            id="inlineRadio4" value="4">
-                                        <label class="form-check-label" for="inlineRadio4">4</label>
-                                    </div>
 
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Positive Marks</label>
-                                <input type="text" name="Marks-{{forloop.counter}}" class="form-control"
-                                    placeholder="Marks For the Question" id="exampleFormControlInput1">
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Negative Marks</label>
-                                <input type="text" name="NegMarks-{{forloop.counter}}" class="form-control"
-                                    placeholder="Negative Marks For the Question " id="exampleFormControlInput1">
-                            </div>
 
-                        </div>
 
-                    </div>
 
-                </section>
-            </section>
-            {% endfor %}
-            <button type="submit" name="submit2" class="btn btn-primary btn-lg my-4 " style="margin-left: 50px;">Submit Quiz</button>
-        </form>
-        {% endif %}
+
 
     </main>
 
